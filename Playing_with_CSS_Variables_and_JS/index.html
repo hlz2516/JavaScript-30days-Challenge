@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+        :root {
+            --spacing: 10px;
+            --blur: 10px;
+            --base: #3f1fb6;
+        }
+
+        body {
+            text-align: center;
+            background: #193549;
+            color: white;
+            font-family: "helvetica neue", sans-serif;
+            font-weight: 100;
+            font-size: 50px;
+        }
+
+        .controls {
+            margin-bottom: 50px;
+        }
+
+        input {
+            width: 100px;
+        }
+
+        img {
+            padding: var(--spacing);
+            background: var(--base);
+            filter: blur(var(--blur));
+        }
+
+        .hl {
+            color: var(--base);
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Update CSS Variables with <span class="hl">JS</span></h2>
+
+    <div class="controls">
+        <label for="spacing">Spacing:</label>
+        <input id="spacing" type="range" name="spacing" min="10" max="200" value="10" data-sizing="px" />
+
+        <label for="blur">Blur:</label>
+        <input id="blur" type="range" name="blur" min="0" max="25" value="10" data-sizing="px" />
+
+        <label for="base">Base Color</label>
+        <input id="base" type="color" name="base" value="#ffc600" />
+    </div>
+
+    <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500" />
+
+    <script>
+        var elems = document.querySelectorAll(".controls input");
+
+        function handleUpdate(e) {
+            //dataset里面是该元素自定义data属性(即以data-为前缀的自定义属性)的合集
+            //console.log(this.dataset);
+            let suffix = this.dataset.sizing || ""; //有些属性值需要后缀如px，有些不需要
+            //直接设置更新css变量（关键代码）
+            document.documentElement.style.setProperty(
+                `--${this.name}`,
+                this.value + suffix
+            );
+        }
+
+        elems.forEach(function (value) {
+            value.addEventListener("change", handleUpdate);
+            value.addEventListener("mousemove", handleUpdate);
+        });
+    </script>
+</body>
+
+</html>
