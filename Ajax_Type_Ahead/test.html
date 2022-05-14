@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function getMax() { 
+            console.log(arguments);
+            return Math.max(...arguments); //这里同理也会传进去一个参数序列，之前我们是用apply，现在可以不用了
+         }
+         var nums = [1,2,3];
+         console.log(getMax(...nums));  //...会将[1,2,3]转换为1,2,3
+    </script>
+</body>
+</html>

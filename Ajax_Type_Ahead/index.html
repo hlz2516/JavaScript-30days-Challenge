@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form class="search-form">
+      <input type="text" class="search" placeholder="City or State" />
+      <ul class="suggestions"></ul>
+    </form>
+    <script>
+      const endpoint =
+        "https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json";
+      let citys = [];
+      fetch(endpoint)
+        .then(function (resp) {
+          return resp.json();
+        })
+        .then(function (data) {
+          citys.push(...data);
+        });
+
+      const ul = document.querySelector(".suggestions");
+      const input = document.querySelector(".search");
+
+      input.addEventListener("keyup", function (e) {
+        let matched = findMatches(this.value, citys);
+        let regex = new RegExp(this.value, "gi");
+        let matchStr = this.value;
+
+        let lis = matched.map(function (item) {
+          const cityName = item.city.replace(
+            regex,
+            `<span class="hl">${matchStr}</span>`
+          );
+          const stateName = item.state.replace(
+            regex,
+            `<span class="hl">${matchStr}</span>`
+          );
+          return `
+            <li>
+                <span class="name">${cityName}, ${stateName}</span>
+                <span class="population">${numberWithCommas(
+                  item.population
+                )}</span>
+            </li>
+            `;
+        });
+        ul.innerHTML = lis.join("");
+      });
+      //在列表中找到匹配的城市或州
+      function findMatches(matchStr, list) {
+        let reg = new RegExp(matchStr, "gi");
+        let res = list.filter(function (item) {
+          return reg.test(item.city) || reg.test(item.state);
+        });
+        console.log(res);
+        return res;
+      }
+
+      function numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      }
+    </script>
+  </body>
+</html>

@@ -30,17 +30,17 @@ align-items: center;
 - nowrap：默认值，即不换行
 - wrap：换行，第一行在上面
 - wrap-reverse：换行，第一行在下面  
-**justify-content属性**
+**justify-content属性**  
 定义了项目在主轴上的对齐方式，假设主轴是从左向右的水平排列  
 - flex-start：默认值，左对齐。即沿着主轴向最左端靠拢对齐，下同理。
 - flex-end：右对齐
-- center：居中
-**align-items属性**
+- center：居中  
+**align-items属性**  
 定义了项目在交叉轴上的对齐方式，假设交叉轴是从上到下排列  
 - flex-start：交叉轴起点对齐。即沿着交叉轴向最上端靠拢对齐，下同理。
 - flex-end：交叉轴终点对齐
 - center：交叉轴中点对齐
-- baseline：项目的第一行文字的基准线对齐
+- baseline：项目的第一行文字的基准线对齐  
 所以在练习代码中，设置justify-content:center;和align-items:center;是为了将子元素水平垂直居中。  
 好，现在再来看之前的问题，如果设置改变主轴方向为竖直后，原来的交叉轴会自动变为水平轴吗？  
 我特意写了个测试案例，经过验证，原来的交叉轴会自动变为水平轴。  
