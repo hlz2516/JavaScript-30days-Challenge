@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <canvas id="can"></canvas>
+
+    <script>
+        var canvas = document.querySelector('#can');
+        //context对象是内建的 HTML5 对象，拥有多种绘制路径、矩形、圆形、字符以及添加图像的方法。
+        var context = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        //路径的画笔颜色
+        context.strokeStyle = '#BADA55';
+        //线条的结束端点样式
+        context.lineCap = 'round';
+        //两条线相交时，所创建的拐角类型。
+        context.lineJoin = 'round';
+        //画笔的宽度
+        context.lineWidth = 50;
+        var isPressed = false;
+        //上一次mouseup时的坐标，以及初始坐标
+        var lastX,lastY;
+        var hue = 0;
+
+        function drag(e) {  
+            if(!isPressed) return;
+            //设置画笔颜色
+            context.strokeStyle = `hsl(${hue},100%,50%)`;
+            //重置路径，否则会认为上一条路径和当前路径设置的属性一致。
+            //如果把这行代码注释，会发现连续的线条颜色相同，不会有渐变效果
+            context.beginPath();
+            //定义线条开始坐标
+            context.moveTo(lastX,lastY);
+            //定义线条结束坐标
+            context.lineTo(e.offsetX,e.offsetY);
+            //画线
+            context.stroke();
+            [lastX,lastY] = [e.offsetX,e.offsetY];
+            hue = (hue+1)%360;
+        }
+
+        canvas.addEventListener('mousedown',e =>{
+            [lastX,lastY] = [e.offsetX,e.offsetY];
+            isPressed = true;
+        });
+        canvas.addEventListener('mouseup',e => isPressed = false);
+        canvas.addEventListener('mousemove',drag);
+    </script>
+</body>
+</html>
