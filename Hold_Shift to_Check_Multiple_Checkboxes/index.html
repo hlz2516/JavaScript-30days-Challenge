@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .box {
+        width: 360px;
+        height: 600px;
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        margin: 20px auto;
+        box-shadow: 5px 5px 0 rgba(0, 0, 0, 0.1);
+      }
+
+      .box > div {
+        flex: 1;
+        border: 1px solid black;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+      }
+
+      input {
+        flex: 1;
+        margin: auto;
+      }
+
+      p {
+        flex: 5;
+        border-left: 1px solid black;
+        text-align: left;
+        padding: 0 10px;
+        margin: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      input:checked + p {
+      background: #F9F9F9;
+      text-decoration: line-through;
+    }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div>
+        <input type="checkbox" name="g" />
+        <p>This is an inbox layout.</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Check one item</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Hold down your Shift key</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Check a lower item</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Everything in between should also be set to checked</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Try to do it without any libraries</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Just regular JavaScript</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Good Luck!</p>
+      </div>
+      <div>
+        <input type="checkbox" name="g" />
+        <p>Don't forget to tweet your result!</p>
+      </div>
+    </div>
+
+    <script>
+      var shiftting = false;
+      var lastChecked = null;
+
+      function handleCheck(e) {
+        if (e.shiftKey) {
+          shiftting = true;
+        }
+
+        if (shiftting) {
+          //刚勾选上
+          if (this.checked === true) {
+            if (lastChecked === null) {
+              lastChecked = this;
+              return;
+            }
+            let lastIndex = checkboxs.indexOf(lastChecked);
+            let curIndex = checkboxs.indexOf(this);
+            if(lastIndex < curIndex){
+                for (let i = lastIndex; i < curIndex; i++) {
+                    checkboxs[i].checked = true;
+                }
+            }
+            else{
+                for (let i = curIndex; i < lastIndex; i++) {
+                    checkboxs[i].checked = true;
+                }
+            }
+          }
+          else{
+            if (lastChecked === null) {
+              return;
+            }
+            let lastIndex = checkboxs.indexOf(lastChecked);
+            let curIndex = checkboxs.indexOf(this);
+            if(lastIndex < curIndex){
+                for (let i = lastIndex; i < curIndex; i++) {
+                    checkboxs[i].checked = false;
+                }
+            }
+            else{
+                for (let i = curIndex; i <= lastIndex; i++) {
+                    checkboxs[i].checked = false;
+                }
+            }
+            lastChecked = null;
+          }
+        }
+      }
+
+      var checkboxs = Array.from(document.querySelectorAll('input[name="g"]'));
+      checkboxs.forEach(function (checkbox) {
+        checkbox.addEventListener("click", handleCheck);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- ex 1: -->
+    <p onclick="makeBig()">123</p>
+
+    <script>
+        function makeBig() {  
+            let p = document.querySelector('p');
+            p.style.color = '#777';
+            p.style.fontSize = '24px';
+        }
+
+        console.warn("it's a warning");
+        console.error("it's a error");
+        //打印一个元素标签
+        console.log(p);
+        //输出该元素所有的属性
+        console.dir(p);
+    </script>
+</body>
+</html>
